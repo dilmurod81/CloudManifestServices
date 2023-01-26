@@ -1,9 +1,61 @@
 ﻿@page "/"
+@using CloudManifestServices.Models
+@inject IServices ServicesImplementationClass
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<SfGrid DataSource="@ServicesList" Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" TValue="Services" AllowResizing="true" AllowSorting="true" AllowPaging="true" AllowFiltering="true">
+    <GridEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true" Mode="EditMode.Normal"></GridEditSettings>
+    <GridEvents OnActionBegin="ActionBeginHandler" OnActionComplete="ActionCompleteHandler" TValue="Services"></GridEvents>
+    <GridColumns>
+        <GridColumn Field="@nameof(Services.Id)" IsPrimaryKey="true" IsIdentity="true" Visible="false"></GridColumn>
+        <GridColumn Field="@nameof(Services.Title)" Width="150"></GridColumn>
+        <GridColumn Field="@nameof(Services.ShortDescription)" Width="150"></GridColumn>
+        <GridColumn Field="@nameof(Services.IsActive)" Width="90" DisplayAsCheckBox="true" ></GridColumn>
+        <GridColumn Field="@nameof(Services.ScheduledStart)" Width="90" Format="d" ></GridColumn>
+        <GridColumn Field="@nameof(Services.DateEntered)" Format="d" Width="70"></GridColumn>
+    </GridColumns>
+</SfGrid>
 
-Welcome to your new app.
+@code
+{
+    
+    public IEnumerable<Services>? ServicesList { get; set; }
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    protected override void OnInitialized()
+    {
+        ServicesList = ServicesImplementationClass.GetServices();
+    }
+    public void ActionBeginHandler(ActionEventArgs<Services> Args)
+    {
+        //Will be triggered when CRUD action is initiated
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save))
+        {
+            if (Args.Action == "Add")
+            {
+                // Insert the changes into your database here.
+                ServicesImplementationClass.InsertService(Args.Data);
+            }
+            if (Args.Action == "Edit")
+            {
+                //Update the changes into your database here.
+                ServicesImplementationClass.UpdateService(Args.Data.Id, Args.Data);
+            }
+        }
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Delete))
+        {
+            //Remove the record from your database
+            ServicesImplementationClass.DeleteService(Args.Data.Id);
+        }
+    }
+    public void ActionCompleteHandler(ActionEventArgs<Services> Args)
+    {
+        //will be triggered when CRUD action is complete.
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save))
+        {
+            ServicesList = ServicesImplementationClass.GetServices(); //to fetch the updated data from db to Grid
+        }
+    }
+    
+    
+}

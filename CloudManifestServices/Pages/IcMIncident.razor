@@ -1,0 +1,72 @@
+﻿@page "/icmincident"
+
+@using CloudManifestServices.Models
+@inject IIncident IncidentImplementationClass
+
+<PageTitle>IcMIncidents</PageTitle>
+
+<SfGrid DataSource="@IcMIncidentList" Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" TValue="Incident" AllowResizing="true" AllowSorting="true" AllowPaging="true" AllowFiltering="true">
+    <GridEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true" Mode="EditMode.Normal"></GridEditSettings>
+    <GridEvents OnActionBegin="ActionBeginHandler" OnActionComplete="ActionCompleteHandler" TValue="Incident"></GridEvents>
+    <GridColumns>
+        <GridColumn Field="@nameof(Incident.Source)" Visible="true" Width="50"></GridColumn>
+        <GridColumn Field="@nameof(Incident.ResourceType)" Width="140"></GridColumn>
+        <GridColumn Field="@nameof(Incident.ErrorType)" Width="15"></GridColumn>
+        <GridColumn Field="@nameof(Incident.Week)" Width="40"></GridColumn>
+        <GridColumn Field="@nameof(Incident.IcMincidentId)" Width="20"></GridColumn>
+        <GridColumn Field="@nameof(Incident.WeekStart)" Format="d" Width="50"></GridColumn>
+        <GridColumn Field="@nameof(Incident.WeekEnd)" Format="d" Width="50"></GridColumn>
+        <GridColumn Field="@nameof(Incident.ResourceProvider)" Width="15"></GridColumn>
+        <GridColumn Field="@nameof(Incident.DateCreatedDb)" Format="d" Width="50"></GridColumn>
+        <GridColumn Field="@nameof(Incident.DateCreatedIcM)" Format="d" Width="10"></GridColumn>
+        <GridColumn Field="@nameof(Incident.OperationStatus)" Width="20"></GridColumn>
+        <GridColumn Field="@nameof(Incident.Severity)"  Width="15"></GridColumn>
+        <GridColumn Field="@nameof(Incident.ProposedOwningService)"  Width="130"></GridColumn>
+        <GridColumn Field="@nameof(Incident.IcMlandedService)"  Width="10"></GridColumn>
+        <GridColumn Field="@nameof(Incident.IcMlandedTeam)"  Width="10"></GridColumn>
+        <GridColumn Field="@nameof(Incident.LinkToIcM)"  Width="10"></GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code
+{
+
+    public IEnumerable<Incident> IcMIncidentList { get; set; }
+
+    protected override void OnInitialized()
+    {
+        IcMIncidentList = IncidentImplementationClass.GetIncidents();
+    }
+    public void ActionBeginHandler(ActionEventArgs<Incident> Args)
+    {
+        //Will be triggered when CRUD action is initiated
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save))
+        {
+            if (Args.Action == "Add")
+            {
+                // Insert the changes into your database here.
+                IncidentImplementationClass.InsertIncident(Args.Data);
+            }
+            if (Args.Action == "Edit")
+            {
+                //Update the changes into your database here.
+                IncidentImplementationClass.UpdateIncident(Args.Data.IcMincidentId, Args.Data);
+            }
+        }
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Delete))
+        {
+            //Remove the record from your database
+            IncidentImplementationClass.DeleteIncident(Args.Data.IcMincidentId);
+        }
+    }
+    public void ActionCompleteHandler(ActionEventArgs<Incident> Args)
+    {
+        //will be triggered when CRUD action is complete.
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save))
+        {
+            IcMIncidentList = IncidentImplementationClass.GetIncidents(); //to fetch the updated data from db to Grid
+        }
+    }
+
+
+}

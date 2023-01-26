@@ -1,0 +1,253 @@
+﻿{
+   "CodeGenerationMode": 2,
+   "ContextClassName": "ProvokeDBContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": "Models",
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "CloudManifestServices",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[A_AllRTMetricsLogsStatus_Unified]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[A_DiagnosticLogCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[A_metricPerResourceType]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AllRTLogsStatus]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AllRTMetricsLogsStatus]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AllRTMetricsLogsStatus_Unified]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AllRTMetricsStatus]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Change_Logs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Change_Logs_Historical]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Change_Logs_Historical_ACROSS_Clouds]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Change_Logs_Historical_ACROSS_Clouds_NAMM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Change_Logs_Historical_NAMM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Change_Metrics]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Change_Metrics_Historical]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Change_Metrics_Historical_ACROSS_Clouds]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Change_Metrics_Historical_ACROSS_Clouds_NAMM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Change_Metrics_Historical_NAMM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Cloud]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Dashboard]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Dashboard_Kusto]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Dashboard_Manifest]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Dashboard_NAMM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DiagnosticLogCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DiagnosticLogCategories_NAMM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DiagnosticLogCategories_PKviolation]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DiagnosticLogCategories_PKviolation_NAMM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DiagnosticLogCategories_Previous]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DiagnosticLogCategories_Previous_NAMM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[HasLogsYN_Type]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[HasMetricsYN_Type]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Kusto_ServiceTree]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Manifest_Management]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Manifest_Management_Owner]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Manifest_RP]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Manifest_RT]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MetricsLogs_PersistentParameters]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MetricsLogs_PersistentParameters_NAMM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MetricsPerResourceType]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MetricsPerResourceType_NAMM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MetricsPerResourceType_PKviolation]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MetricsPerResourceType_PKviolation_NAMM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MetricsPerResourceType_Previous]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MetricsPerResourceType_Previous_NAMM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NAMM_RPRT]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[NAMM_RT]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Process_Control]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Services]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[IcM].[CosmosDBCaseResults]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[IcM].[Dashboard_IcM]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[IcM].[ErrorType]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[IcM].[Incident]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[IcM].[Incident_Detail]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[IcM].[OperationStatus]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[IcM].[Source]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "TUDEVSERVER7\\SQLEXPRESS2019.ProvokeDB",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false,
+   "UseT4": false
+}
