@@ -9,10 +9,10 @@ using CloudManifestServices.Pages;
 
 namespace CloudManifestServices.ImplementationClasses
 {
-    public class ChangeLogHistoricalImplementationClass : IChangeLogHistorical
+    public class ChangeMetricsHistoricalImplementationClass : IChangeMetricsHistorical
     {
         private ProvokeDBContext _context;
-        public ChangeLogHistoricalImplementationClass(ProvokeDBContext context)
+        public ChangeMetricsHistoricalImplementationClass(ProvokeDBContext context)
         {
             _context = context;
         }
@@ -21,8 +21,8 @@ namespace CloudManifestServices.ImplementationClasses
         {
             try
             {
-                ChangeLogsHistorical eachService = _context.ChangeLogsHistorical.Find(cloud);
-                _context.ChangeLogsHistorical.Remove(eachService);
+                ChangeMetricsHistorical eachService = _context.ChangeMetricsHistorical.Find(cloud);
+                _context.ChangeMetricsHistorical.Remove(eachService);
                 _context.SaveChanges();
             }
             catch
@@ -31,12 +31,12 @@ namespace CloudManifestServices.ImplementationClasses
             }
         }
 
-        public IEnumerable<ChangeLogsHistorical> Get()
+        public IEnumerable<ChangeMetricsHistorical> Get()
         {
 
             try
             {
-                return _context.ChangeLogsHistorical.ToList();
+                return _context.ChangeMetricsHistorical.ToList();
             }
             catch
             {
@@ -44,11 +44,11 @@ namespace CloudManifestServices.ImplementationClasses
             }
         }
 
-        public void Insert(ChangeLogsHistorical changeLogsHistorical)
+        public void Insert(ChangeMetricsHistorical changeMetricsHistorical)
         {
             try
             {
-                _context.ChangeLogsHistorical.Add(changeLogsHistorical);
+                _context.ChangeMetricsHistorical.Add(changeMetricsHistorical);
                 _context.SaveChanges();
             }
             catch
@@ -57,23 +57,23 @@ namespace CloudManifestServices.ImplementationClasses
             }
         }
 
-        public ChangeLogsHistorical Single(String cloud)
+        public ChangeMetricsHistorical Single(String cloud)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(String cloud, ChangeLogsHistorical changeLogsHistorical)
+        public void Update(String cloud, ChangeMetricsHistorical changeMetricsHistorical)
         {
             try
             {
-                var local = _context.Set<ChangeLogsHistorical>().Local.FirstOrDefault(entry => entry.Cloud.Equals(changeLogsHistorical.Cloud));
+                var local = _context.Set<ChangeMetricsHistorical>().Local.FirstOrDefault(entry => entry.Cloud.Equals(changeMetricsHistorical.Cloud));
                 // check if local is not null
                 if (local != null)
                 {
                     // detach
                     _context.Entry(local).State = EntityState.Detached;
                 }
-                _context.Entry(changeLogsHistorical).State = EntityState.Modified;
+                _context.Entry(changeMetricsHistorical).State = EntityState.Modified;
                 _context.SaveChanges();
             }
             catch
