@@ -11,12 +11,12 @@
         <GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.ResourceProvider)" Format="100" Width="150"></GridColumn>
         <GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.ResourceTypeNoRp)" Width="100"></GridColumn>
         <GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.IncidentRoutingService )" Width="100"></GridColumn>
-        @*<GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.IncidentRoutingTeam)" Width="100" DisplayAsCheckBox="true">
-        </GridColumn>*@
-        @*<GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.IncidentContactEmail)" Width="100" DisplayAsCheckBox="true">
-        </GridColumn>*@
-        @*<GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.ResourceAccessPolicy)" Width="100" DisplayAsCheckBox="true">
-        </GridColumn>*@
+        <GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.IncidentRoutingTeam)" Width="100">
+        </GridColumn>
+        <GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.IncidentContactEmail)" Width="100">
+        </GridColumn>
+        <GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.ResourceAccessPolicy)" Width="100">
+        </GridColumn>
     </GridColumns>
 </SfGrid>
 
