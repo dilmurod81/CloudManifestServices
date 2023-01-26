@@ -30,6 +30,7 @@ builder.Services.AddScoped<IIncident, IncidentImplementationClass>();
 builder.Services.AddScoped<ISource, SourceImplementationClass>();
 builder.Services.AddScoped<IDashboardIcm, DashboardIcmImplementationClass>();
 builder.Services.AddScoped<IManifestManagement, ManifestManagementImplementationClass>();
+builder.Services.AddScoped<IChangeLogHistorical, ChangeLogHistoricalImplementationClass>();
 builder.Services.AddScoped<IProcessControl, ProcessImplementationClass>();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();

@@ -1,0 +1,69 @@
+﻿@page "/changeloghistorical"
+
+@using CloudManifestServices.Models
+@inject CloudManifestServices.Interfaces.IChangeLogHistorical ChangeLogHistoricalImplementationClass
+
+<PageTitle>Change Log Historicals</PageTitle>
+
+<SfGrid DataSource="@LogHistoricalsList" Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" TValue="CloudManifestServices.Models.ChangeLogsHistorical" AllowResizing="true" AllowSorting="true" AllowPaging="true" AllowFiltering="true">
+    <GridEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true" Mode="EditMode.Normal"></GridEditSettings>
+    <GridEvents OnActionBegin="ActionBeginHandler" OnActionComplete="ActionCompleteHandler" TValue="CloudManifestServices.Models.ChangeLogsHistorical"></GridEvents>
+    <GridColumns>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.Cloud)" Visible="true" Width="60"></GridColumn>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.ResourceProviderTypePre)" Width="100"></GridColumn>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.CategoryTotal)" Width="80"></GridColumn>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.ChangeType)" Width="40"></GridColumn>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.ChangeTypeNumber)" Width="30"></GridColumn>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.ProcessDate)" Format="d" Width="50"></GridColumn>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.ChangeCategoryDisplayName)" Width="10"></GridColumn>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.ResourceProviderTypeCurrent)" Width="30"></GridColumn>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.ResourceProviderTypePre)"Width="100"></GridColumn>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.CategoryCurrent)" Width="20"></GridColumn>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.CategoryPre)" Width="70"></GridColumn>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.CategoryDisplayNameCurrent)" Width="20"></GridColumn>
+        <GridColumn Field="@nameof(ChangeLogsHistorical.CategoryDisplayNamePre)" Width="100"></GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code
+{
+
+    public IEnumerable<CloudManifestServices.Models.ChangeLogsHistorical> LogHistoricalsList { get; set; }
+
+    protected override void OnInitialized()
+    {
+        LogHistoricalsList = ChangeLogHistoricalImplementationClass.Get();
+    }
+    public void ActionBeginHandler(ActionEventArgs<CloudManifestServices.Models.ChangeLogsHistorical> Args)
+    {
+        //Will be triggered when CRUD action is initiated
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save))
+        {
+            if (Args.Action == "Add")
+            {
+                // Insert the changes into your database here.
+                ChangeLogHistoricalImplementationClass.Insert(Args.Data);
+            }
+            if (Args.Action == "Edit")
+            {
+                //Update the changes into your database here.
+                ChangeLogHistoricalImplementationClass.Update(Args.Data.Cloud, Args.Data);
+            }
+        }
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Delete))
+        {
+            //Remove the record from your database
+            ChangeLogHistoricalImplementationClass.Delete(Args.Data.Cloud);
+        }
+    }
+    public void ActionCompleteHandler(ActionEventArgs<CloudManifestServices.Models.ChangeLogsHistorical> Args)
+    {
+        //will be triggered when CRUD action is complete.
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save))
+        {
+            LogHistoricalsList = ChangeLogHistoricalImplementationClass.Get(); //to fetch the updated data from db to Grid
+        }
+    }
+
+
+}
