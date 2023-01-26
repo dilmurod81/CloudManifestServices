@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CloudManifestServices.Models;
 
-namespace CloudManifestServices.Models
+namespace CloudManifestServices.Interfaces
 {
     interface IIncident
     {

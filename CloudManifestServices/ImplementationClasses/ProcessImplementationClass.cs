@@ -3,23 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CloudManifestServices.Interfaces;
+using CloudManifestServices.Models;
 
-namespace CloudManifestServices.Models
+namespace CloudManifestServices.ImplementationClasses
 {
-    public class ServicesImplementationClass : IServices
+    public class ProcessImplementationClass : IProcessControl
     {
-        private CloudManifestServices.Models.ProvokeDBContext _context;
-        public ServicesImplementationClass(CloudManifestServices.Models.ProvokeDBContext context)
+        private ProvokeDBContext _context;
+        public ProcessImplementationClass(ProvokeDBContext context)
         {
             _context = context;
         }
 
-        public void DeleteService(int id)
+        public void DeleteProcess(int id)
         {
             try
             {
-                Services eachService = _context.Services.Find(id);
-                _context.Services.Remove(eachService);
+                ProcessControl eachService = _context.ProcessControl.Find(id);
+                _context.ProcessControl.Remove(eachService);
                 _context.SaveChanges();
             }
             catch
@@ -28,12 +30,12 @@ namespace CloudManifestServices.Models
             }
         }
 
-        public IEnumerable<Services> GetServices()
+        public IEnumerable<ProcessControl> GetProcess()
         {
 
             try
             {
-                return _context.Services.ToList();
+                return _context.ProcessControl.ToList();
             }
             catch
             {
@@ -41,11 +43,11 @@ namespace CloudManifestServices.Models
             }
         }
 
-        public void InsertService(Services service)
+        public void InsertProcess(ProcessControl process)
         {
             try
             {
-                _context.Services.Add(service);
+                _context.ProcessControl.Add(process);
                 _context.SaveChanges();
             }
             catch
@@ -54,23 +56,23 @@ namespace CloudManifestServices.Models
             }
         }
 
-        public Services SingleService(int id)
+        public ProcessControl SingleProcess(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateService(int id, Services service)
+        public void UpdateProcess(int id, ProcessControl process)
         {
             try
             {
-                var local = _context.Set<Services>().Local.FirstOrDefault(entry => entry.Id.Equals(service.Id));
+                var local = _context.Set<ProcessControl>().Local.FirstOrDefault(entry => entry.Id.Equals(process.Id));
                 // check if local is not null
                 if (local != null)
                 {
                     // detach
                     _context.Entry(local).State = EntityState.Detached;
                 }
-                _context.Entry(service).State = EntityState.Modified;
+                _context.Entry(process).State = EntityState.Modified;
                 _context.SaveChanges();
             }
             catch

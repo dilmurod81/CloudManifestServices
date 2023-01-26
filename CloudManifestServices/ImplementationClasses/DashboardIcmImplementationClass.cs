@@ -3,23 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CloudManifestServices.Interfaces;
+using CloudManifestServices.Models;
 
-namespace CloudManifestServices.Models
+namespace CloudManifestServices.ImplementationClasses
 {
-    public class IncidentImplementationClass : IIncident
+    public class DashboardIcmImplementationClass : IDashboardIcm
     {
         private ProvokeDBContext _context;
-        public IncidentImplementationClass(ProvokeDBContext context)
+        public DashboardIcmImplementationClass(ProvokeDBContext context)
         {
             _context = context;
         }
 
-        public void DeleteIncident(int icm)
+        public void Delete(String sourceId)
         {
             try
             {
-                Incident eachService = _context.Incident.Find(icm);
-                _context.Incident.Remove(eachService);
+                DashboardIcM eachService = _context.DashboardIcM.Find(sourceId);
+                _context.DashboardIcM.Remove(eachService);
                 _context.SaveChanges();
             }
             catch
@@ -28,12 +30,12 @@ namespace CloudManifestServices.Models
             }
         }
 
-        public IEnumerable<Incident> GetIncidents()
+        public IEnumerable<DashboardIcM> Get()
         {
 
             try
             {
-                return _context.Incident.ToList();
+                return _context.DashboardIcM.ToList();
             }
             catch
             {
@@ -41,11 +43,11 @@ namespace CloudManifestServices.Models
             }
         }
 
-        public void InsertIncident(Incident incident)
+        public void Insert(DashboardIcM dashboardIcm)
         {
             try
             {
-                _context.Incident.Add(incident);
+                _context.DashboardIcM.Add(dashboardIcm);
                 _context.SaveChanges();
             }
             catch
@@ -54,23 +56,23 @@ namespace CloudManifestServices.Models
             }
         }
 
-        public Incident SingleIncident(int icm)
+        public DashboardIcM Single(String sourceId)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateIncident(int icm, Incident incident)
+        public void Update(String sourceId, DashboardIcM dashboardIcm)
         {
             try
             {
-                var local = _context.Set<Incident>().Local.FirstOrDefault(entry => entry.IcMincidentId.Equals(incident.IcMincidentId));
+                var local = _context.Set<DashboardIcM>().Local.FirstOrDefault(entry => entry.SourceId.Equals(dashboardIcm.SourceId));
                 // check if local is not null
                 if (local != null)
                 {
                     // detach
                     _context.Entry(local).State = EntityState.Detached;
                 }
-                _context.Entry(incident).State = EntityState.Modified;
+                _context.Entry(dashboardIcm).State = EntityState.Modified;
                 _context.SaveChanges();
             }
             catch

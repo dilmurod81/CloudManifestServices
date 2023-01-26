@@ -1,0 +1,64 @@
+﻿@page "/manifestmanagement"
+@using CloudManifestServices.Models
+@inject CloudManifestServices.Interfaces.IManifestManagement ManifestManagementImplementationClass
+
+<PageTitle>Manifest Management</PageTitle>
+
+<SfGrid DataSource="@ManifestList" Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" TValue="CloudManifestServices.Models.ManifestManagement" AllowResizing="true" AllowSorting="true" AllowPaging="true" AllowFiltering="true">
+    <GridEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true" Mode="EditMode.Normal"></GridEditSettings>
+    <GridEvents OnActionBegin="ActionBeginHandler" OnActionComplete="ActionCompleteHandler" TValue="CloudManifestServices.Models.ManifestManagement"></GridEvents>
+    <GridColumns>
+        <GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.ResourceProvider)" Format="100" Width="150"></GridColumn>
+        <GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.ResourceTypeNoRp)" Width="100"></GridColumn>
+        <GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.IncidentRoutingService )" Width="100"></GridColumn>
+        @*<GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.IncidentRoutingTeam)" Width="100" DisplayAsCheckBox="true">
+        </GridColumn>*@
+        @*<GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.IncidentContactEmail)" Width="100" DisplayAsCheckBox="true">
+        </GridColumn>*@
+        @*<GridColumn Field="@nameof(CloudManifestServices.Models.ManifestManagement.ResourceAccessPolicy)" Width="100" DisplayAsCheckBox="true">
+        </GridColumn>*@
+    </GridColumns>
+</SfGrid>
+
+@code
+{
+    
+    public IEnumerable<CloudManifestServices.Models.ManifestManagement>? ManifestList { get; set; }
+
+    protected override void OnInitialized()
+    {
+        ManifestList = ManifestManagementImplementationClass.Get();
+    }
+    public void ActionBeginHandler(ActionEventArgs<CloudManifestServices.Models.ManifestManagement> Args)
+    {
+        //Will be triggered when CRUD action is initiated
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save))
+        {
+            if (Args.Action == "Add")
+            {
+                // Insert the changes into your database here.
+                ManifestManagementImplementationClass.Insert(Args.Data);
+            }
+            if (Args.Action == "Edit")
+            {
+                //Update the changes into your database here.
+                ManifestManagementImplementationClass.Update(Args.Data.ResourceProvider, Args.Data);
+            }
+        }
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Delete))
+        {
+            //Remove the record from your database
+            ManifestManagementImplementationClass.Delete(Args.Data.ResourceProvider);
+        }
+    }
+    public void ActionCompleteHandler(ActionEventArgs<CloudManifestServices.Models.ManifestManagement> Args)
+    {
+        //will be triggered when CRUD action is complete.
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save))
+        {
+            ManifestList = ManifestManagementImplementationClass.Get(); //to fetch the updated data from db to Grid
+        }
+    }
+    
+    
+}

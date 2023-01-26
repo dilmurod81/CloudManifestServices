@@ -1,0 +1,60 @@
+﻿@page "/dashboardicm"
+@using CloudManifestServices.Models
+@inject CloudManifestServices.Interfaces.IDashboardIcm DashboardIcmImplementationClass
+
+<PageTitle>Dashboard Icm</PageTitle>
+
+<SfGrid DataSource="@IcmList" Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" TValue="DashboardIcM" AllowResizing="true" AllowSorting="true" AllowPaging="true" AllowFiltering="true">
+    <GridEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true" Mode="EditMode.Normal"></GridEditSettings>
+    <GridEvents OnActionBegin="ActionBeginHandler" OnActionComplete="ActionCompleteHandler" TValue="DashboardIcM"></GridEvents>
+    <GridColumns>
+        <GridColumn Field="@nameof(DashboardIcM.ProcessDate)" Format="d" Width="150"></GridColumn>
+        <GridColumn Field="@nameof(DashboardIcM.SourceId)" Width="150"></GridColumn>
+        @*<GridColumn Field="@nameof(DashboardIcM.NumberIncidents )" Width="150"></GridColumn>
+        <GridColumn Field="@nameof(DashboardIcM.NumberIncidentDetails)" Width="150" DisplayAsCheckBox="true">
+        </GridColumn>*@
+    </GridColumns>
+</SfGrid>
+
+@code
+{
+    
+    public IEnumerable<DashboardIcM>? IcmList { get; set; }
+
+    protected override void OnInitialized()
+    {
+        IcmList = DashboardIcmImplementationClass.Get();
+    }
+    public void ActionBeginHandler(ActionEventArgs<DashboardIcM> Args)
+    {
+        //Will be triggered when CRUD action is initiated
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save))
+        {
+            if (Args.Action == "Add")
+            {
+                // Insert the changes into your database here.
+                DashboardIcmImplementationClass.Insert(Args.Data);
+            }
+            if (Args.Action == "Edit")
+            {
+                //Update the changes into your database here.
+                DashboardIcmImplementationClass.Update(Args.Data.SourceId, Args.Data);
+            }
+        }
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Delete))
+        {
+            //Remove the record from your database
+            DashboardIcmImplementationClass.Delete(Args.Data.SourceId);
+        }
+    }
+    public void ActionCompleteHandler(ActionEventArgs<DashboardIcM> Args)
+    {
+        //will be triggered when CRUD action is complete.
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save))
+        {
+            IcmList = DashboardIcmImplementationClass.Get(); //to fetch the updated data from db to Grid
+        }
+    }
+    
+    
+}

@@ -1,0 +1,60 @@
+﻿@page "/processcontrol"
+@using CloudManifestServices.Models
+@inject CloudManifestServices.Interfaces.IProcessControl ProcessImplementationClass
+
+<PageTitle>Index</PageTitle>
+
+<SfGrid DataSource="@ProcessList" Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" TValue="CloudManifestServices.Models.ProcessControl" AllowResizing="true" AllowSorting="true" AllowPaging="true" AllowFiltering="true">
+    <GridEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true" Mode="EditMode.Normal"></GridEditSettings>
+    <GridEvents OnActionBegin="ActionBeginHandler" OnActionComplete="ActionCompleteHandler" TValue="CloudManifestServices.Models.ProcessControl"></GridEvents>
+    <GridColumns>
+        <GridColumn Field="@nameof(CloudManifestServices.Models.ProcessControl.Id)" Width="250" IsPrimaryKey="true" IsIdentity="true"></GridColumn>
+        <GridColumn Field="@nameof(CloudManifestServices.Models.ProcessControl.ControlPointDescription)" Width="250"></GridColumn>
+        <GridColumn Field="@nameof(CloudManifestServices.Models.ProcessControl.Status)" Width="250"></GridColumn>
+        <GridColumn Field="@nameof(CloudManifestServices.Models.ProcessControl.ProcessDate)" Width="250" Format="d"></GridColumn>
+        
+    </GridColumns>
+</SfGrid>
+
+@code
+{
+
+    public IEnumerable<CloudManifestServices.Models.ProcessControl>? ProcessList { get; set; }
+
+    protected override void OnInitialized()
+    {
+        ProcessList = ProcessImplementationClass.GetProcess();
+    }
+    public void ActionBeginHandler(ActionEventArgs<CloudManifestServices.Models.ProcessControl> Args)
+    {
+        //Will be triggered when CRUD action is initiated
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save))
+        {
+            if (Args.Action == "Add")
+            {
+                // Insert the changes into your database here.
+                ProcessImplementationClass.InsertProcess(Args.Data);
+            }
+            if (Args.Action == "Edit")
+            {
+                //Update the changes into your database here.
+                ProcessImplementationClass.UpdateProcess(Args.Data.Id, Args.Data);
+            }
+        }
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Delete))
+        {
+            //Remove the record from your database
+            ProcessImplementationClass.DeleteProcess(Args.Data.Id);
+        }
+    }
+    public void ActionCompleteHandler(ActionEventArgs<CloudManifestServices.Models.ProcessControl> Args)
+    {
+        //will be triggered when CRUD action is complete.
+        if (Args.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Save))
+        {
+            ProcessList = ProcessImplementationClass.GetProcess(); //to fetch the updated data from db to Grid
+        }
+    }
+
+
+}
