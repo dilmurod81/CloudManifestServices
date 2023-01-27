@@ -4,7 +4,7 @@
 
 <PageTitle>Index</PageTitle>
 
-<SfGrid DataSource="@ServicesList" Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" TValue="Services" AllowResizing="true" AllowSorting="true" AllowPaging="true" AllowFiltering="true">
+<SfGrid DataSource="@ServicesList" Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" TValue="Services" AllowResizing="true" AllowSorting="true" AllowPaging="true" AllowFiltering="true" AllowGrouping="true">
     <GridEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true" Mode="EditMode.Normal"></GridEditSettings>
     <GridEvents OnActionBegin="ActionBeginHandler" OnActionComplete="ActionCompleteHandler" TValue="Services"></GridEvents>
     <GridColumns>

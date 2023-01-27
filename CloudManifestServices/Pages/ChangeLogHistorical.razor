@@ -5,7 +5,7 @@
 
 <PageTitle>Change Log Historicals</PageTitle>
 
-<SfGrid DataSource="@LogHistoricalsList" Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" TValue="CloudManifestServices.Models.ChangeLogsHistorical" AllowResizing="true" AllowSorting="true" AllowPaging="true" AllowFiltering="true">
+<SfGrid DataSource="@LogHistoricalsList" Toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Cancel", "Update" })" TValue="CloudManifestServices.Models.ChangeLogsHistorical" AllowResizing="true" AllowSorting="true" AllowPaging="true" AllowFiltering="true" AllowGrouping="true" AllowExcelExport="true" AllowPdfExport="true">
     <GridEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true" Mode="EditMode.Normal"></GridEditSettings>
     <GridEvents OnActionBegin="ActionBeginHandler" OnActionComplete="ActionCompleteHandler" TValue="CloudManifestServices.Models.ChangeLogsHistorical"></GridEvents>
     <GridColumns>
